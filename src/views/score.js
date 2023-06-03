@@ -6,7 +6,7 @@ import Loader from '../components/loader';
 function scorePage (props){
 
     const [isLoading, setIsLoading] = useState(true)
-    const [headerText, setHeaderText] = useState("Loading")
+    const [headerText, setHeaderText] = useState("Loading...")
 
     useEffect(() => {
         const timer = setTimeout(() => {
