@@ -1,20 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '../components/button';
 import shinyTrophy from './shining-trophy.gif'
 
-const cards = [
-  {
-    heading: "Quiz Score",
-    main: "80%"
-  },
-  {
-    heading: "Chapter Score",
-    main: "7.5"
-  }
-]
+// const cards = [
+//   {
+//     heading: "Quiz Score",
+//     main: "80%"
+//   },
+//   {
+//     heading: "Chapter Score",
+//     main: "7.5"
+//   }
+// ]
 
-const Score = () => {
- 
+const Score = (props) => {
+  // const [cards, setCards] = useState([]);
+  const cards = props.cards || []
+  // useEffect(() => {
+  //   setCards(props.cards)
+  // })
     return (
         <div className="score-container">
           <div className="top-half">

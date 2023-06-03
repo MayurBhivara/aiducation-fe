@@ -1,13 +1,26 @@
 import React, {useState} from 'react';
 import Header from '../components/header';
+import * as axios from 'axios';
 const quiz = (props) => {
     const questionsData = props.location.state
     const textStr = questionsData.text;
-    const [text, setText] = useState(textStr||"");
+    const [text, setText] = useState("");
+    const [comparisionText, setCompText] = useState(textStr||"")
     delete questionsData["text"];
     const [questions, setquestions] = useState(questionsData || {});
     const [showErr, setShowErr] = useState(false)
     const [allAnsDone, setAllAnsDone] = useState(false)
+
+    const calculateAns = ()=>{
+        let rightAns= 0;
+        Object.keys(questions).forEach(x=>{
+            if(questions[x].selected === questions[x].ans) rightAns++;
+        })
+        const questionCount = Object.keys(questions).length;
+        const score = Math.floor((rightAns*100)/questionCount) + "%";
+        return score;
+    }
+
     const checkAllAns = ()=>{
         if(!text.length){
             setAllAnsDone(false);
@@ -23,13 +36,25 @@ const quiz = (props) => {
         setAllAnsDone(true)
     }
     const submitForm = ()=>{
-        console.log("here")
         checkAllAns();
         if(!allAnsDone){
             setShowErr(true)
             return;
         }
-        
+        const score = calculateAns();
+        const getScore = axios.post("https://mumbaihacks-be-2.sarjak-chawda.repl.co/v1/ml/rate-text", {text:comparisionText, userText: text}).then(res=>{
+            const cards = [
+                {
+                  heading: "Quiz Score",
+                  main: score
+                },
+                {
+                  heading: "Chapter Score",
+                  main: res.data.rating
+                }
+              ]
+              props.history.push({pathname:"/score", state: cards});
+        });
     }
 
     const selectAns = (option)=>{
