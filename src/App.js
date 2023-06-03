@@ -3,6 +3,7 @@ import './App.css';
 import homepage from './views/home'
 import uploadPage from './views/uploadPage'
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
+import scorePage from './views/score';
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
                 )}/>
                  <Route exact path='/home' component={homepage} />
                  <Route exact path='/upload' component={uploadPage} />
+                 <Route exact path='/score' component={scorePage} />
           </Switch>
     </Router>
     );
