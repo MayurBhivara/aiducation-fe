@@ -4,9 +4,11 @@ import * as axios from 'axios'
 import Webcam from 'react-webcam'
 
 const videoConstraints = {
-  width: 400,
-  height: 400,
+  width: 450,
+  height: 450,
   facingMode: 'user',
+  imageSmoothing: false,
+  torch:true
 }
 const Camera = (props) => {
   const [picture, setPicture] = useState('');
