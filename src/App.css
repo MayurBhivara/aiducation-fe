@@ -22,7 +22,142 @@
   font-size: large;
 }
 
+.score-container {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+}
+
+
+.top-half {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 0;
+}
+
+.bottom-half {
+  background-color: white;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px 0;
+}
+.score__container--card--container {
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 0;
+  padding: 14px;
+}
+.card--container--heading {
+  font-size: 14px;
+  font-weight: 600;
+}
+.card--container--main {
+  font-size: 26px;
+  line-height: 22px;
+
+}
+
+.home-start-btn--button {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.sec-top-half,
+.sec-bottom-half {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.loader {
+  position: relative;
+  width: 120px;
+  height: 90px;
+  margin: 0 auto;
+  margin-top: 40vh;
+}
+
+.loader:before {
+  content: "";
+  position: absolute;
+  bottom: 30px;
+  left: 50px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background: #2a9d8f;
+  animation: loading-bounce 0.5s ease-in-out infinite alternate;
+}
+
+.loader:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 7px;
+  width: 45px;
+  border-radius: 4px;
+  box-shadow: 0 5px 0 #453f3f, -35px 50px 0 #282525, -70px 95px 0 #000000;
+  animation: loading-step 1s ease-in-out infinite;
+}
+
+@keyframes loading-bounce {
+  0% {
+    transform: scale(1, 0.7);
+  }
+
+  40% {
+    transform: scale(0.8, 1.2);
+  }
+
+  60% {
+    transform: scale(1, 1);
+  }
+
+  100% {
+    bottom: 140px;
+  }
+}
+
+@keyframes loading-step {
+  0% {
+    box-shadow: 0 10px 0 rgba(0, 0, 0, 0),
+            0 10px 0 #121111,
+            -35px 50px 0 #322e2e,
+            -70px 90px 0 #000000;
+  }
+
+  100% {
+    box-shadow: 0 10px 0 #5e5656,
+            -35px 50px 0 #302a2a,
+            -70px 90px 0 #000000,
+            -70px 90px 0 rgba(0, 0, 0, 0);
+  }
 }
