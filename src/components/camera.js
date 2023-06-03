@@ -1,12 +1,14 @@
 // eslint-disable-next-line
 import React, { useState } from 'react'
+import * as axios from 'axios'
 import Webcam from 'react-webcam'
+
 const videoConstraints = {
   width: 400,
   height: 400,
   facingMode: 'user',
 }
-const Profile = () => {
+const Camera = (props) => {
   const [picture, setPicture] = useState('');
   const [picsArr, setPicsArr] = useState([]);
   const [showCam , setShowCam] = useState(true);
@@ -102,10 +104,40 @@ const Profile = () => {
                 </div>
             </div>
             <div>
-                <button className='default-btn'>Done</button>
+                <button onClick={(e) => {e.preventDefault(); handleSubmit()}} className='default-btn'>Done</button>
             </div>
         </div>
     ) : "";
+    const facingMode="environment";
+
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[arr.length - 1]), 
+            n = bstr.length, 
+            u8arr = new Uint8Array(n);
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, {type:mime});
+    }
+    
+
+    const handleSubmit =async () => {
+        const data = new FormData();
+
+        for(var x = 0; x<picsArr.length; x++) {
+            let compressedFile = picsArr[x];
+            const file = dataURLtoFile(compressedFile, x+".jpeg")
+            data.append('file', file)
+        }
+        axios.post("https://mumbaihacks-be-2.sarjak-chawda.repl.co/v1/ml/upload-images", data)
+        .then(res => { 
+            props.prevProps.history.push({pathname:"/quiz", state: res.data});
+          }).catch(e=>{
+            props.prevProps.history.push({pathname:"/quiz", state: {msg:e.message}});
+          })
+    }
 
   return (
     <div>
@@ -117,7 +149,7 @@ const Profile = () => {
             ref={webcamRef}
             width={400}
             screenshotFormat="image/jpeg"
-            videoConstraints={videoConstraints}
+            videoConstraints={{...videoConstraints, facingMode}}
           />
         ) : (
           <img src={picture} alt={"abc"} />
@@ -134,4 +166,4 @@ const Profile = () => {
     </div>
   )
 }
-export default Profile
+export default Camera

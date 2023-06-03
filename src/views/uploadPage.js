@@ -6,7 +6,7 @@ function uploadPage (props){
     return(
         <div>
             <Header label={"Upload Images"} prevProps = {props} />
-            <Camera />
+            <Camera prevProps={props}/>
         </div>
     )
 }

@@ -4,7 +4,7 @@
     color: white;
     background-color: rgba(146, 94, 177, 1);
     padding: 16px;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .homepage-container{
@@ -42,6 +42,8 @@
     display: flex;
     align-items: center;
     padding: 20px;
+    border-bottom: 1px solid white;
+    box-shadow: 0px 2px lightgray;
 }
 
 .back-btn{
@@ -98,4 +100,58 @@
     width: 100%;
     display: flex;
     justify-content: center;
+}
+.difficulty-choice-container{
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    margin: 0px 0px;
+}
+.difficulty-form{
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+}
+.radio {
+    display: flex;
+    text-align: center;
+    margin: 0px;
+    padding: 10px;
+}
+.qna-container{
+    width: 80%;
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem 0em;
+    font-weight: 400;
+}
+.qna-questions{
+    font-weight: 400;
+    padding: 10px 0px;
+}
+.qna-options{
+    font-weight: 400;
+    padding: 5px;
+}
+.brief-question{
+    padding: 10px;
+    font-weight: 400;
+}
+.text-area-container{
+    display: flex;
+    justify-content: left;
+}
+.text-area{
+    width: 80%;
+    justify-content: center;
+}
+.desc-container{
+    padding-top: 0;
+}
+.submit-btn{
+    display: flex;
+    padding-bottom: 10px;
+}
+.ans-prompt{
+    color: red;
 }
