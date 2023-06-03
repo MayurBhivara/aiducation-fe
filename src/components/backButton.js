@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import Button from './button';
+import React from 'react';
 import '../styles/index.css'
 import arrow from '../media/arrow.png'
 
@@ -9,7 +8,7 @@ function backButton (props){
     }
     const response = (
         <div onClick={goBack} className='back-btn'>
-            <img width={"50%"} src={arrow}/>
+            <img width={"50%"} src={arrow} alt={"back btn"}/>
         </div>
     )
     return response;

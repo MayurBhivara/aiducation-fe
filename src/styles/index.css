@@ -52,11 +52,50 @@
     text-align: center;
 }
 .picture-grid{
-    height: 10vh;
+    /* height: 10vh; */
     width: 100%;
     display: flex;
     justify-content: left;
 }
+.grid-bot{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 .grid-img{
     width: 50px;
+    height: 100%;
+}
+.review-btn-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.review-btn{
+    /* width: 40%; */
+    padding: 15px;
+    margin: 20px;
+}
+
+.picture-grid-container{
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.add-icon{
+    height: 100%;
+}
+.picture-grid{
+    display: flex;
+}
+.capture-btn{
+    width: 50%;
+    border-radius: 30px;
+}
+.capture-btn-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

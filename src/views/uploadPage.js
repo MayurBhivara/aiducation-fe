@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import '../styles/index.css'
 import Header from "../components/header"
-import Profile from "../components/profile"
 import Camera from '../components/camera';
 function uploadPage (props){
     return(

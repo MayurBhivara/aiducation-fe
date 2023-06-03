@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+// eslint-disable-next-line
+import React from 'react';
 import Button from '../components/button'
 import '../styles/index.css'
 import homepageImage from "../media/homepageimage.png"
@@ -10,7 +11,7 @@ function homepage (props){
     const component = (
         <div className='homepage-container'>
             <div className='home-img'>
-                <img src={homepageImage} />
+                <img src={homepageImage}  alt={"abc"}/>
             </div>
             <div className='home-title-container'>
                 <div className='home-title-1'>TAKE MY</div>
@@ -24,7 +25,5 @@ function homepage (props){
     return (component)
 }
 
-function sendToUpload (){
-    this.nextPath('/upload') 
-}
+
 export default homepage;

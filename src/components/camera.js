@@ -1,6 +1,6 @@
+// eslint-disable-next-line
 import React, { useState } from 'react'
 import Webcam from 'react-webcam'
-const WebcamComponent = () => <Webcam />
 const videoConstraints = {
   width: 400,
   height: 400,
@@ -10,12 +10,14 @@ const Profile = () => {
   const [picture, setPicture] = useState('');
   const [picsArr, setPicsArr] = useState([]);
   const [showCam , setShowCam] = useState(true);
+  const [showButtons , setShowButtons] = useState(true);
   const webcamRef = React.useRef(null)
   const capture = React.useCallback(() => {
     const pictureSrc = webcamRef.current.getScreenshot()
     
     setPicture(pictureSrc);
     setShowCam(false);
+    setShowButtons(true);
   })
 
   const captureBtn = (
@@ -24,7 +26,7 @@ const Profile = () => {
       e.preventDefault()
       capture()
     }}
-    className="btn btn-danger"
+    className="default-btn capture-btn"
   >
     Capture
   </button>
@@ -37,31 +39,31 @@ const Profile = () => {
       setPicture("")
       setShowCam(true)
     }}
-    className="btn btn-primary"
+    className="review-btn"
   >
-    Retake
+    X
   </button>
   )
 
   const addPicBtn = (
-    <button
+    <button 
     onClick={(e) => {
       e.preventDefault()
       addPic();
     }}
-    className="btn btn-primary"
+    className="review-btn"
   >
-    Add pic
+    ✓
   </button>
   )
 
   const addPic = ()=>{
     const arr = [...picsArr, picture];
-    console.log(arr)
+    setShowButtons(false);
     setPicsArr(arr);
   }
-  const adterClick = (
-      <div>
+  const adterClick = showButtons?(
+      <div className='review-btn-container'>
           <div>
               {retakeBtn}
           </div>
@@ -69,14 +71,14 @@ const Profile = () => {
               {addPicBtn}
           </div>
       </div>
-  )
+  ) : ""
     function getPictureGrid(){
 
         if(picsArr.length > 0){
-            const picGrid = picsArr.map(pic=>{
+            const picGrid = picsArr.map((pic, idx)=>{
                 return (
                     <div >
-                        <img className='grid-img' src={pic} />
+                        <img className='grid-img' src={pic} key={idx} alt={"abc"}/>
                     </div>
                 )
             })
@@ -84,9 +86,24 @@ const Profile = () => {
         }
         return '';
     }
+    function addImage (){
+        setShowCam(true);
+    }
     const imagegrid = picsArr.length > 0? (
-        <div className='picture-grid'>
-            {getPictureGrid()}
+        <div className="grid-bot">
+            <div className='picture-grid-container'>
+                <div className='picture-grid' >
+                    {getPictureGrid()}
+                </div>
+                <div>
+                    {picsArr.length < 5? <button className='add-icon' onClick={addImage}>
+                        +
+                    </button> : ""}
+                </div>
+            </div>
+            <div>
+                <button className='default-btn'>Done</button>
+            </div>
         </div>
     ) : "";
 
@@ -103,22 +120,14 @@ const Profile = () => {
             videoConstraints={videoConstraints}
           />
         ) : (
-          <img src={picture} />
+          <img src={picture} alt={"abc"} />
         )}
       </div>
-      <div>
+      <div className='capture-btn-container'>
         {!showCam ? (
           adterClick
         ) : (
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              capture()
-            }}
-            className="btn btn-danger"
-          >
-            Capture
-          </button>
+            captureBtn
         )}
       </div>
       {imagegrid}
