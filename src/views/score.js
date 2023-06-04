@@ -6,13 +6,13 @@ import Loader from '../components/loader';
 function scorePage (props){
   const cards = props.location.state
     const [isLoading, setIsLoading] = useState(true)
-    const [headerText, setHeaderText] = useState("Loading")
+    const [headerText, setHeaderText] = useState("Loading...")
 
     useEffect(() => {
         const timer = setTimeout(() => {
           setIsLoading(false);
           setHeaderText("Score");
-        }, 3000);
+        }, 100);
         return () => clearTimeout(timer);
       }, []);
 
@@ -20,9 +20,7 @@ function scorePage (props){
         <div className="container">
 
             <Header label={headerText} prevProps = {props} />
-            <Score cards={cards}/>
-
-            {isLoading ?  <Loader/> :  <Score/>}
+            {isLoading ?  <Loader/> :  <Score cards={cards}/>}
            
         </div>
     )

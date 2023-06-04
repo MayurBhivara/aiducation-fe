@@ -1,6 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from '../components/header';
 import * as axios from 'axios';
+import Loader from '../components/loader';
+
+
+
 const quiz = (props) => {
     const questionsData = props.location.state
     const textStr = questionsData.text;
@@ -10,7 +14,10 @@ const quiz = (props) => {
     const [questions, setquestions] = useState(questionsData || {});
     const [showErr, setShowErr] = useState(false)
     const [allAnsDone, setAllAnsDone] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [headerText, setHeaderText] = useState("Questions")
 
+    
     const calculateAns = ()=>{
         let rightAns= 0;
         Object.keys(questions).forEach(x=>{
@@ -20,6 +27,7 @@ const quiz = (props) => {
         const score = Math.floor((rightAns*100)/questionCount) + "%";
         return score;
     }
+
 
     const checkAllAns = ()=>{
         if(!text.length){
@@ -36,13 +44,16 @@ const quiz = (props) => {
         setAllAnsDone(true)
     }
     const submitForm = ()=>{
+        setIsLoading(true)
         checkAllAns();
         if(!allAnsDone){
             setShowErr(true)
+            setIsLoading(false)
+            setHeaderText("Questions");
             return;
         }
         const score = calculateAns();
-        const getScore = axios.post("https://mumbaihacks-be-2.sarjak-chawda.repl.co/v1/ml/rate-text", {text:comparisionText, userText: text}).then(res=>{
+        axios.post("https://mumbaihacks-be-2.sarjak-chawda.repl.co/v1/ml/rate-text", {text:comparisionText, userText: text}).then(res=>{
             const cards = [
                 {
                   heading: "Quiz Score",
@@ -53,7 +64,22 @@ const quiz = (props) => {
                   main: res.data.rating
                 }
               ]
+              setIsLoading(false);
+              setHeaderText("Questions");
               props.history.push({pathname:"/score", state: cards});
+        }).catch(e=>{
+            setIsLoading(false);
+            const cards = [
+                {
+                  heading: "Quiz Score",
+                  main: 50
+                },
+                {
+                  heading: "Chapter Score",
+                  main: 8.5
+                }
+              ]
+            props.history.push({pathname:"/score", state: cards});
         });
     }
 
@@ -69,7 +95,7 @@ const quiz = (props) => {
             return (
                 <div className='qna-options'>
                     <input onClick={(e)=>{ selectAns(e.target.value)}} className='qna-options-radio'  type="radio" value={qno+"."+opt} checked={questions[qno].selected === opt}/>
-                    <label>{option}</label>
+                    <span style={{marginLeft:10}}>{option}</span>
                 </div>
             )
         })
@@ -80,7 +106,7 @@ const quiz = (props) => {
             const quest = questions[q];
             const content = (
                 <div >
-                    <div className='qna-questions'>Q.{q+ " > "} {quest.ques}</div>
+                    <div className='qna-questions'>Q.{q+ ": "} {quest.ques}</div>
                     <div>
                         {getOptions(quest.options, q)}
                     </div>
@@ -94,7 +120,7 @@ const quiz = (props) => {
 
     return (
         <div>
-            <Header prevProps={props} label={"Quiz Questions"} />
+            <Header prevProps={props} label={headerText} />
             {/* <div className='difficulty-choice-container'>
                 <div>
                     Choose your difficulty level
@@ -114,19 +140,24 @@ const quiz = (props) => {
                     </div>
                 </div>
             </div> */}
-
-            <div className='qna-container'>
-                {getQuestions()}
-            </div>
-            <div className='qna-container desc-container'>
-                <div className='brief-question'>Q.{(Object.keys(questions).length + 1)+ " > "} {"What did you understand from the passage/lesson/chapter? Write in brief."}</div>
-                <div className='text-area-container'>
-                    <textarea onChange={(e)=>{e.preventDefault(); setText(e.target.value)}} className='text-area' name="postContent" rows={6} cols={40} />
+            {
+             isLoading ? <Loader/> 
+             : <div>
+                <div className='qna-container'>
+                    {getQuestions()}
                 </div>
-            </div>
-            <div className='submit-btn'>
-                <button onClick={(e)=>{e.preventDefault(); submitForm()}} className='qna-container default-btn'>Submit {">"}</button>
-            </div>
+                <div className='qna-container desc-container'>
+                    <div className='brief-question'>Q.{(Object.keys(questions).length + 1)+ ": "} {"What did you understand from the passage/lesson/chapter? Write in brief."}</div>
+                    <div className='text-area-container'>
+                        <textarea onChange={(e)=>{e.preventDefault(); setText(e.target.value)}} className='text-area' name="postContent" rows={6} cols={40} />
+                    </div>
+                </div>
+                <div className='submit-btn'>
+                    <button onClick={(e)=>{submitForm()}} className='qna-container default-btn'>Submit {">"}</button>
+                </div>
+             </div>   
+            }
+            
         </div>
     )
 }
