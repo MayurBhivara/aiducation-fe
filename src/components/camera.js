@@ -141,7 +141,7 @@ const Camera = (props) => {
                 props.prevProps.history.push({ pathname: "/quiz", state: res.data });
             }).catch(e => {
                 setIsLoading(false)
-                props.prevProps.history.push({ pathname: "/quiz", state: { msg: e.message } });
+                alert("Something went wrong. please try again.");
             })
     }
 

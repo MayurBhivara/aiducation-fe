@@ -17,7 +17,8 @@ const Score = (props) => {
   // const [cards, setCards] = useState([]);
   const cards = props.cards || []
   const questions = props.questions || {}
-  console.log("props",props)
+  const summaryText = props.summaryText || "";
+
   const showSummary = ()=>{
     props.prevProps.history.push({pathname:"/summary", state:questions})
   }
@@ -41,7 +42,9 @@ const Score = (props) => {
             }
             
           </div>
-
+            <div className='pro-tip'>
+              {summaryText.length>0? "Pro Tip: " + summaryText : ""}
+            </div>
           <div className='home-start-btn'>
                 <button onClick={(e)=>{e.preventDefault(), showSummary()}} className='default-btn'>View Report</button>
           </div>

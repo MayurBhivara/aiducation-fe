@@ -66,7 +66,7 @@ const quiz = (props) => {
               ]
               setIsLoading(false);
               setHeaderText("Questions");
-              props.history.push({pathname:"/score", state: {cards, questions}});
+              props.history.push({pathname:"/score", state: {cards, questions, summaryText: res.data.justification}});
         }).catch(e=>{
             setIsLoading(false);
             const cards = [
