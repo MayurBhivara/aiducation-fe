@@ -16,6 +16,11 @@ import shinyTrophy from './shining-trophy.gif'
 const Score = (props) => {
   // const [cards, setCards] = useState([]);
   const cards = props.cards || []
+  const questions = props.questions || {}
+  console.log("props",props)
+  const showSummary = ()=>{
+    props.prevProps.history.push({pathname:"/summary", state:questions})
+  }
   // useEffect(() => {
   //   setCards(props.cards)
   // })
@@ -38,7 +43,7 @@ const Score = (props) => {
           </div>
 
           <div className='home-start-btn'>
-                <Button label={"View Report"}/>
+                <button onClick={(e)=>{e.preventDefault(), showSummary()}} className='default-btn'>View Report</button>
           </div>
         </div>
       );

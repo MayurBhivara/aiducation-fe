@@ -147,13 +147,13 @@ const Camera = (props) => {
 
     return (
         isLoading? <Loader/> : <div>
-            <div>
+            <div className='camera-feed'>
                 {(showCam && picsArr.length < 5) ? (
                     <Webcam
                         audio={false}
-                        height={400}
+                        height={"100%"}
                         ref={webcamRef}
-                        width={400}
+                        width={"90%"}
                         screenshotFormat="image/jpeg"
                         videoConstraints={{ ...videoConstraints, facingMode }}
                     />

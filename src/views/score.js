@@ -4,7 +4,7 @@ import Header from "../components/header"
 import Score from '../components/score';
 import Loader from '../components/loader';
 function scorePage (props){
-  const cards = props.location.state
+  const {cards, questions} = props.location.state
     const [isLoading, setIsLoading] = useState(true)
     const [headerText, setHeaderText] = useState("Loading...")
 
@@ -20,7 +20,7 @@ function scorePage (props){
         <div className="container">
 
             <Header label={headerText} prevProps = {props} />
-            {isLoading ?  <Loader/> :  <Score cards={cards}/>}
+            {isLoading ?  <Loader/> :  <Score cards={cards} questions={questions} prevProps={props}/>}
            
         </div>
     )

@@ -160,3 +160,14 @@
 .ans-prompt{
     color: red;
 }
+.wrong-ans{
+    color: red;
+}
+.right-ans{
+    color: green;
+}
+.camera-feed{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+}

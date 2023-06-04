@@ -5,6 +5,7 @@ import uploadPage from './views/uploadPage'
 import quiz from './views/quiz'
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import scorePage from './views/score';
+import summaryPage from './views/summary';
 
 
 class App extends Component {
@@ -21,6 +22,7 @@ class App extends Component {
                  <Route exact path='/upload' component={uploadPage} />
                  <Route exact path='/quiz' component={quiz} />
                  <Route exact path='/score' component={scorePage} />
+                 <Route exact path='/summary' component={summaryPage} />
           </Switch>
     </Router>
     );

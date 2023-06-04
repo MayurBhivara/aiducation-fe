@@ -66,20 +66,20 @@ const quiz = (props) => {
               ]
               setIsLoading(false);
               setHeaderText("Questions");
-              props.history.push({pathname:"/score", state: cards});
+              props.history.push({pathname:"/score", state: {cards, questions}});
         }).catch(e=>{
             setIsLoading(false);
             const cards = [
                 {
                   heading: "Quiz Score",
-                  main: 50
+                  main: score
                 },
                 {
                   heading: "Chapter Score",
                   main: 8.5
                 }
               ]
-            props.history.push({pathname:"/score", state: cards});
+            props.history.push({pathname:"/score", state: {cards, questions}});
         });
     }
 
@@ -149,7 +149,10 @@ const quiz = (props) => {
                 <div className='qna-container desc-container'>
                     <div className='brief-question'>Q.{(Object.keys(questions).length + 1)+ ": "} {"What did you understand from the passage/lesson/chapter? Write in brief."}</div>
                     <div className='text-area-container'>
-                        <textarea onChange={(e)=>{e.preventDefault(); setText(e.target.value)}} className='text-area' name="postContent" rows={6} cols={40} />
+                        <div>
+                            <textarea onChange={(e)=>{e.preventDefault(); setText(e.target.value)}} className='text-area' name="postContent" rows={6} cols={40} />
+                            {showErr && !text.length ? <div className='ans-prompt'>*Please provice an answer</div>: ""}
+                        </div>
                     </div>
                 </div>
                 <div className='submit-btn'>
