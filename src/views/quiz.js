@@ -42,11 +42,12 @@ const quiz = (props) => {
             }
         }
         setAllAnsDone(true)
+        return true;
     }
     const submitForm = ()=>{
         setIsLoading(true)
-        checkAllAns();
-        if(!allAnsDone){
+        const check = checkAllAns();
+        if(!check){
             setShowErr(true)
             setIsLoading(false)
             setHeaderText("Questions");
