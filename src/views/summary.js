@@ -44,12 +44,12 @@ function summaryPage (props){
     }
 
     return(
-        <div>
+        <div className='summary-container'>
             <Header label={"Summary"} prevProps={props} />
-            <div>
+            <div className='questions-summary'>
                 {getQuestions()}
             </div>
-            <button onClick={()=>{props.history.push("/")}} className='default-btn restart-btn' >Restart</button>
+            <button onClick={()=>{props.history.push("/")}} className='default-btn restart-btn' >Back To Home</button>
         </div>
     )
 }

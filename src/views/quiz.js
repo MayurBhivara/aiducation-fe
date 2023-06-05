@@ -24,7 +24,7 @@ const quiz = (props) => {
             if(questions[x].selected === questions[x].ans) rightAns++;
         })
         const questionCount = Object.keys(questions).length;
-        const score = Math.floor((rightAns*100)/questionCount) + "%";
+        const score = questionCount> 0 ? Math.floor((rightAns*100)/questionCount) + "%" : "N/A";
         return score;
     }
 
@@ -77,10 +77,10 @@ const quiz = (props) => {
                 },
                 {
                   heading: "Chapter Score",
-                  main: 8.5
+                  main: e.response.data.rating
                 }
               ]
-            props.history.push({pathname:"/score", state: {cards, questions}});
+            props.history.push({pathname:"/score", state: {cards, questions, summaryText: e.response.data.justification}});
         });
     }
 
